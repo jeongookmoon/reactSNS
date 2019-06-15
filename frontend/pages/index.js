@@ -1,12 +1,18 @@
 import React from 'react'
-import Link from 'next/link'
+import Head from 'next/head'
+import AppLayout from '../components/AppLayout'
 
 const Home = () => {
   return (
     <>
-      <div><Link href="/another"><a>another</a></Link></div>
-      <div><Link href="/user/create"><a>create</a></Link></div>
-      <div>Hello! This is index (Main page)</div>
+      <Head>
+        <title>React SNS</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.js" />
+      </Head>
+      <AppLayout >
+        <div>Hello! This is index (Main page)</div>
+      </AppLayout>
     </>
   )
 }
