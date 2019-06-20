@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/frontend/node_modules
 
 # testing
 /coverage
@@ -22,3 +23,7 @@ yarn-error.log*
 
 # next build
 .next
+/frontend/.next
+
+# vs code setup
+.vscode
