@@ -1,6 +1,7 @@
 import React from "react"
 import Head from "next/head"
 import AppLayout from "../components/AppLayout"
+import PropTypes from "prop-types"
 
 // using Next's component as prop, use other page as a child
 const ReactSNS = ({ Component }) => {
@@ -16,6 +17,10 @@ const ReactSNS = ({ Component }) => {
       </AppLayout>
     </>
   )
+}
+
+ReactSNS.propTypes = {
+  Component: PropTypes.elementType
 }
 
 export default ReactSNS
