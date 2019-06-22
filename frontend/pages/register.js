@@ -7,6 +7,19 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState(false)
   const [termError, setTermError] = useState(false)
 
+  // custom hook
+  const userInput = (initialValue = null) => {
+    const [value, setter] = useState(initialValue)
+    const handler = useCallback(event => {
+      setter(event.target.value)
+    }, [id, name, password])
+    return [value, handler]
+  }
+
+  const [id, onChangeID] = userInput("")
+  const [name, onChangeName] = userInput("")
+  const [password, onChangePassword] = userInput("")
+
   // useCallback to reduce unnecessary rendering 
   // when event handler functions are called
   const onSubmit = useCallback(event => {
@@ -24,31 +37,15 @@ const Register = () => {
     })
   }, [password, repassword, term])
 
-  // TODO: couldn't useCallback here. 
-  // password doesn't get updated immediately
-  // probably due to using useCallback in custom hook function
-  const onChangeRepassword = event => {
+  const onChangeRepassword = useCallback(event => {
     setPasswordError(event.target.value !== password)
     setRepassword(event.target.value)
-  }
+  }, [password])
 
   const onChangeTerm = useCallback(event => {
     setTermError(false)
     setTerm(event.target.checked)
   }, [])
-
-  // custom hook
-  const userInput = (initialValue = null) => {
-    const [value, setter] = useState(initialValue)
-    const handler = useCallback(event => {
-      setter(event.target.value)
-    }, [])
-    return [value, handler]
-  }
-
-  const [id, onChangeID] = userInput("")
-  const [name, onChangeName] = userInput("")
-  const [password, onChangePassword] = userInput("")
 
   return (
     <>
