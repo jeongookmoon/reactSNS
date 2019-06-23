@@ -1,13 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import { Menu, Input, Button, Row, Col, Card, Avatar } from 'antd'
+import { Menu, Input, Row, Col } from 'antd'
+import LoginForm from "./LoginForm"
+import ProfileFrom from "./ProfileForm"
 
 const dummy = {
   name: "Maison Margiella",
   Post: [],
   Following: [],
-  Follower: []
+  Follower: [],
+  isLoggedIn: false
 }
 
 const AppLayout = ({ children }) => {
@@ -19,24 +22,14 @@ const AppLayout = ({ children }) => {
         <Menu.Item key="search">
           <Input.Search enterButton style={{ verticalAlign: "middle" }} />
         </Menu.Item>
-        <Menu.Item key="register">
-          <Link href="/register"><a><Button>Register</Button></a></Link>
-        </Menu.Item>
       </Menu>
       <Row>
         <Col xs={24} md={6}>
-          <Card
-            actions={[
-              <div key="like">Like<br />{dummy.Post.length}</div>,
-              <div key="following">Following<br />{dummy.Following.length}</div>,
-              <div key="follower">Followers<br />{dummy.Follower.length}</div>
-            ]}
-          >
-            <Card.Meta
-              avatar={<Avatar>{dummy.name[0]}</Avatar>}
-              title={dummy.name}
-            />
-          </Card>
+          {dummy.isLoggedIn ?
+            <ProfileFrom data={dummy} />
+            :
+            <LoginForm />
+          }
         </Col>
         <Col xs={24} md={12}>
           {children}
@@ -44,7 +37,6 @@ const AppLayout = ({ children }) => {
         <Col xs={24} md={6}>
         </Col>
       </Row>
-
     </div>
   )
 }

@@ -1,20 +1,20 @@
 import React, { useState, useCallback } from "react"
 import { Form, Input, Checkbox, Button } from "antd"
 
+// custom hook
+export const userInput = (initialValue = null) => {
+  const [value, setter] = useState(initialValue)
+  const handler = useCallback(event => {
+    setter(event.target.value)
+  }, [])
+  return [value, handler]
+}
+
 const Register = () => {
   const [repassword, setRepassword] = useState("")
   const [term, setTerm] = useState("")
   const [passwordError, setPasswordError] = useState(false)
   const [termError, setTermError] = useState(false)
-
-  // custom hook
-  const userInput = (initialValue = null) => {
-    const [value, setter] = useState(initialValue)
-    const handler = useCallback(event => {
-      setter(event.target.value)
-    }, [id, name, password])
-    return [value, handler]
-  }
 
   const [id, onChangeID] = userInput("")
   const [name, onChangeName] = userInput("")
