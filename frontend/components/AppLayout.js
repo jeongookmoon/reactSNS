@@ -23,19 +23,18 @@ const AppLayout = ({ children }) => {
           <Input.Search enterButton style={{ verticalAlign: "middle" }} />
         </Menu.Item>
       </Menu>
-      <Row>
-        <Col xs={24} md={6}>
+      <Row gutter={10} style={{ maxWidth: "100%" }}>
+        <Col xs={23} md={6}>
           {dummy.isLoggedIn ?
             <ProfileFrom data={dummy} />
             :
             <LoginForm />
           }
         </Col>
-        <Col xs={24} md={12}>
+        <Col xs={23} md={12} style={{ marginTop: "1vh" }}>
           {children}
         </Col>
-        <Col xs={24} md={6}>
-        </Col>
+
       </Row>
     </div>
   )
