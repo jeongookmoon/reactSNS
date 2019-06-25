@@ -2,15 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import { Menu, Input, Row, Col } from 'antd'
-import LoginForm from "./LoginForm"
-import ProfileFrom from "./ProfileForm"
+import LoginForm from "./Login/LoginForm"
+import ProfileFrom from "./Login/ProfileForm"
 
 const dummy = {
   name: "Maison Margiella",
   Post: [],
   Following: [],
   Follower: [],
-  isLoggedIn: false
+  isLoggedIn: true
 }
 
 const AppLayout = ({ children }) => {
