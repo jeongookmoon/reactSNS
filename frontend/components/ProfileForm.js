@@ -1,8 +1,8 @@
 import React from "react"
 import { Card, Avatar } from "antd"
+import PropTypes from "prop-types"
 
-const ProfileForm = (props) => {
-  const { data } = props
+const ProfileForm = ({ data }) => {
   return (
     <Card
       actions={[
@@ -19,5 +19,14 @@ const ProfileForm = (props) => {
   )
 }
 
+ProfileForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    Post: PropTypes.array,
+    Following: PropTypes.array,
+    Follower: PropTypes.array,
+    isLoggedIn: PropTypes.bool,
+  })
+}
 
 export default ProfileForm
