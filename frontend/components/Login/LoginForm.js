@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import Link from 'next/link'
 import { Form, Input, Button } from "antd"
-import { userInput } from "../pages/register"
+import { userInput } from "../../pages/register"
 
 const LoginForm = () => {
   const [userId, onChangeId] = userInput("")
