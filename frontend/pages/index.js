@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PostCard from '../components/Home/PostCard'
 import PostForm from "../components/Home/PostForm"
+import { useDispatch, useSelector } from "react-redux"
+import { LOG_IN, LOG_OUT, loginAction, logoutAction } from "../reducers/user"
 
 const dummy = {
   isLoggedIn: true,
@@ -28,8 +30,23 @@ const dummy = {
 }
 
 const Home = () => {
+  const dispatch = useDispatch()
+  // access to state using useSelector hooks
+  const { isLoggedIn, user } = useSelector(state => state.user)
+  // like ComponentDidMount
+  useEffect(() => {
+    dispatch({
+      type: LOG_IN,
+      data: {
+        name: "Maison Margiella"
+      }
+    })
+    dispatch(logoutAction)
+    dispatch(loginAction)
+  }, [])
   return (
-    <>
+    <div>
+      {user ? <div>{user.name} logged in!</div> : <div>Logged Out</div>}
       {dummy.isLoggedIn && <PostForm imagePaths={dummy.imagePaths} />}
       {dummy.mainPosts.map(post => {
         return (
@@ -37,7 +54,7 @@ const Home = () => {
         )
       })
       }
-    </>
+    </div>
   )
 }
 
