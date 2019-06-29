@@ -1,8 +1,17 @@
-import React from "react"
-import { Card, Avatar } from "antd"
+import React, { useCallback } from "react"
+import { Card, Avatar, Button } from "antd"
 import PropTypes from "prop-types"
+import { useDispatch } from "react-redux"
+import { logoutAction } from "../../reducers/user";
 
 const ProfileForm = ({ data }) => {
+  const dispatch = useDispatch()
+  // have to use usecallback since passing logout function
+  // to Button child
+  const logout = useCallback(() => {
+    dispatch(logoutAction)
+  }, [])
+
   return (
     <Card
       actions={[
@@ -15,6 +24,7 @@ const ProfileForm = ({ data }) => {
         avatar={<Avatar>{data.name[0]}</Avatar>}
         title={data.name}
       />
+      <Button onClick={logout}>Logout</Button>
     </Card>
   )
 }

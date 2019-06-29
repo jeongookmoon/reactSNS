@@ -2,7 +2,7 @@ import React from "react"
 import { Form, Input, Button } from "antd"
 import PropTypes from "prop-types"
 
-const PostForm = ({ imagePaths }) => {
+const PostForm = ({ data }) => {
   return (
     <Form encType="multipart/form-data">
       <Input.TextArea maxLength={140} placeholder="What's new?" />
@@ -12,7 +12,7 @@ const PostForm = ({ imagePaths }) => {
         <Button type="primary" style={{ float: "right" }} htmlType="submit">Post</Button>
       </div>
       <div>
-        {imagePaths.map((value, index) => {
+        {data.map((value) => {
           return (
             <div key={value} style={{ display: "inline-block" }}>
               <img src={"http://localhost:3000/" + value} style={{ width: "200px" }} alt={value} />
@@ -28,7 +28,7 @@ const PostForm = ({ imagePaths }) => {
 }
 
 PostForm.propTypes = {
-  imagePaths: PropTypes.array
+  data: PropTypes.array
 }
 
 export default PostForm

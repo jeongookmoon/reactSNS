@@ -3,15 +3,19 @@ export const initialState = {
   user: null
 }
 
+const dummyUser = {
+  name: "Maison Margiella",
+  Post: [],
+  Following: [],
+  Follower: []
+}
+
 // Action Name
 export const LOG_IN = "LOG_IN"
 export const LOG_OUT = "LOG_OUT"
 
 export const loginAction = {
-  type: LOG_IN,
-  data: {
-    name: "Maison Margiella"
-  }
+  type: LOG_IN
 }
 
 export const logoutAction = {
@@ -24,7 +28,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        user: action.data
+        user: dummyUser
       }
     }
     case LOG_OUT: {
