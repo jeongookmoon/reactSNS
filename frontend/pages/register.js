@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from "react"
 import { Form, Input, Checkbox, Button } from "antd"
+import { signUpAction } from "../reducers/user";
+import { useDispatch } from "react-redux"
 
 // custom hook
 export const userInput = (initialValue = null) => {
@@ -19,6 +21,7 @@ const Register = () => {
   const [id, onChangeID] = userInput("")
   const [name, onChangeName] = userInput("")
   const [password, onChangePassword] = userInput("")
+  const dispatch = useDispatch()
 
   // useCallback to reduce unnecessary rendering 
   // when event handler functions are called
@@ -28,13 +31,13 @@ const Register = () => {
       return setPasswordError(true)
     if (!term)
       return setTermError(true)
-    console.log({
-      id,
-      name,
-      password,
-      repassword,
-      term
-    })
+    dispatch(signUpAction(
+      {
+        id,
+        name,
+        password
+      }
+    ))
   }, [password, repassword, term])
 
   const onChangeRepassword = useCallback(event => {
