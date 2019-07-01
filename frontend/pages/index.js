@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div>
-      {user ? <div>{user.name} logged in!</div> : <div>Logged Out</div>}
+      {user ? <div>{user.name} logged in!</div> : <div></div>}
       {isLoggedIn && <PostForm data={imagePaths} />}
       {mainPosts.map(post => {
         return (
