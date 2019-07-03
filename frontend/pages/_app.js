@@ -8,8 +8,8 @@ import { createStore, compose, applyMiddleware } from "redux"
 import reducer from "../reducers"
 // to provide store state to ReactSNS
 import withRedux from "next-redux-wrapper"
-import sagaMiddleware from "../sagas/middleware"
 import rootSaga from "../sagas"
+import createSagaMiddleware from "redux-saga"
 
 // using Next's component as prop, use other page as a child
 const ReactSNS = ({ Component, store }) => {
@@ -34,8 +34,8 @@ ReactSNS.propTypes = {
   store: PropTypes.object
 }
 
-// wrap ReactSNS to provide store states
-export default withRedux((initialState, options) => {
+const configureStore = (initialState, options) => {
+  const sagaMiddleware = createSagaMiddleware()
   const middlewares = [sagaMiddleware]
   // to use Redux devtools on browser add the extension to middleware
   const enhancer = process.env.NODE_ENV === "production" ?
@@ -48,4 +48,7 @@ export default withRedux((initialState, options) => {
   const store = createStore(reducer, initialState, enhancer)
   sagaMiddleware.run(rootSaga)
   return store
-})(ReactSNS)
+}
+
+// wrap ReactSNS to provide store states
+export default withRedux(configureStore)(ReactSNS)
