@@ -1,6 +1,16 @@
 export const initialState = {
   isLoggedIn: false,
-  user: null
+  isLoggingIn: false,
+  isLoggingOut: false,
+  loginErrorDetail: "",
+  isSignedUp: false,
+  isSigningUp: false,
+  signUpErrorDetail: "",
+  isLoading: false,
+  followingList: [],
+  followerList: [],
+  myInfo: null,
+  userInfo: null
 }
 
 const dummyUser = {
@@ -25,7 +35,9 @@ export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS"
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE"
 
 // For Synchronous Request, no need for saga
-export const INCREMENT_NUMBER
+export const INCREMENT_NUMBER = {
+
+}
 
 export const loginAction = {
   type: LOG_IN_REQUEST
@@ -47,20 +59,31 @@ const reducer = (state = initialState, action) => {
     case LOG_IN_REQUEST: {
       return {
         ...state,
-        loginData: action.data
+        loginData: action.data,
+        isLoading: true
       }
     }
     case LOG_IN_SUCCESS: {
       return {
         ...state,
-        isLoggedIn: true
+        isLoggedIn: true,
+        isLoading: false,
+        myInfo: dummyUser
+      }
+    }
+    case LOG_IN_FAILURE: {
+      return {
+        ...state,
+        isLoggedIn: false,
+        isLoading: false,
+        myInfo: null
       }
     }
     case LOG_OUT_REQUEST: {
       return {
         ...state,
         isLoggedIn: false,
-        user: null
+        myInfo: null
       }
     }
     case SIGN_UP_REQUEST: {
