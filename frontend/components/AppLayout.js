@@ -7,7 +7,7 @@ import ProfileFrom from "./Login/ProfileForm"
 import { useSelector } from "react-redux"
 
 const AppLayout = ({ children }) => {
-  const { isLoggedIn, user } = useSelector(state => state.user)
+  const { isLoggedIn, myInfo } = useSelector(state => state.user)
   return (
     <div>
       <Menu mode="horizontal">
@@ -20,7 +20,7 @@ const AppLayout = ({ children }) => {
       <Row gutter={10} style={{ maxWidth: "100%" }}>
         <Col xs={23} md={6}>
           {isLoggedIn ?
-            <ProfileFrom data={user} />
+            <ProfileFrom data={myInfo} />
             :
             <LoginForm />
           }
