@@ -14,7 +14,7 @@ const PostCard = ({ data }) => {
         <Icon type="ellipsis" key="ellipsis" />
       ]}
       extra={<Button>Follow</Button>}
-      style={{ marginBottom: "1.5vh" }}
+      style={{ marginBottom: "3.5vh" }}
     >
       <Card.Meta
         avatar={<Avatar>{data.User.name[0]}</Avatar>}

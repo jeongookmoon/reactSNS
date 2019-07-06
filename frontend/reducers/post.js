@@ -20,8 +20,19 @@ export const initialState = {
     }
   ],
   imagePaths: [], // path for image thumnails
-  addPostError: false,
+  addPostErrorDetail: "",
   isAddingPost: false,
+  postAdded: false
+}
+
+const dummyPost = {
+  User: {
+    id: 3,
+    name: "Ralph Lauren"
+  },
+  content: "Third post!!",
+  img: "https://cdn.shopify.com/s/files/1/0135/0280/8123/articles/Screen_Shot_2019-05-14_at_1.12.07_PM_1024x1024.png?v=1557855486",
+  createdAt: "07-05-2019 11:12:13"
 }
 
 export const LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST"
@@ -71,32 +82,29 @@ export const RETWEET_REQUEST = "RETWEET_REQUEST"
 export const RETWEET_SUCCESS = "RETWEET_SUCCESS"
 export const RETWEET_FAILURE = "RETWEET_FAILURE"
 
-export const addPost = {
-  type: ADD_POST,
-}
-
-export const addDummy = {
-  type: ADD_DUMMY,
-  data: {
-    content: "Hello Hello Hello!",
-    UserId: 1,
-    User: {
-      name: "Maison Margiella"
-    }
-  }
-}
-
 export default (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST: {
-      return {
-        ...state
-      }
-    }
-    case ADD_DUMMY: {
+    case ADD_POST_REQUEST: {
       return {
         ...state,
-        mainPosts: [action.data, ...state.mainPosts]
+        isAddingPost: true,
+        postAdded: false,
+        addPostErrorDetail: ""
+      }
+    }
+    case ADD_POST_SUCCESS: {
+      return {
+        ...state,
+        isAddingPost: false,
+        postAdded: true,
+        mainPosts: [dummyPost, ...state.mainPosts]
+      }
+    }
+    case ADD_POST_FAILURE: {
+      return {
+        ...state,
+        isAddingPost: false,
+        addPostErrorDetail: action.error
       }
     }
     default: {
