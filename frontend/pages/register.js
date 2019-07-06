@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react"
 import { Form, Input, Checkbox, Button } from "antd"
-import { signUpAction } from "../reducers/user";
-import { useDispatch } from "react-redux"
+import { signUpRequestAction } from "../reducers/user";
+import { useDispatch, useSelector } from "react-redux"
 
 // custom hook
 export const userInput = (initialValue = null) => {
@@ -22,6 +22,7 @@ const Register = () => {
   const [name, onChangeName] = userInput("")
   const [password, onChangePassword] = userInput("")
   const dispatch = useDispatch()
+  const { isSigningUp } = useSelector(state => state.user)
 
   // useCallback to reduce unnecessary rendering 
   // when event handler functions are called
@@ -31,7 +32,7 @@ const Register = () => {
       return setPasswordError(true)
     if (!term)
       return setTermError(true)
-    dispatch(signUpAction(
+    dispatch(signUpRequestAction(
       {
         id,
         name,
@@ -79,7 +80,7 @@ const Register = () => {
           {termError && <div style={{ color: "red" }}>You must agree with the term</div>}
         </div>
         <div>
-          <Button type="primary" htmlType="submit">Register</Button>
+          <Button type="primary" htmlType="submit" loading={isSigningUp}>Register</Button>
         </div>
       </Form>
     </>

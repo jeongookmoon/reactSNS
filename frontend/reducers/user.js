@@ -57,33 +57,34 @@ export const INCREMENT_NUMBER = {
 
 }
 
-export const loginAction = {
-  type: LOG_IN_REQUEST
-}
+export const loginRequestAction = data => ({
+  type: LOG_IN_REQUEST,
+  data
+})
 
-export const logoutAction = {
+export const logoutRequestAction = {
   type: LOG_OUT_REQUEST
 }
 
-export const signUpAction = (data) => {
-  return {
-    type: SIGN_UP_REQUEST,
-    data
-  }
-}
+export const signUpRequestAction = (data) => ({
+  type: SIGN_UP_REQUEST,
+  data
+})
 
-const reducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
       return {
         ...state,
         loginData: action.data,
-        isLoading: true
+        isLoggingIn: true,
+        loginErrorDetail: ""
       }
     }
     case LOG_IN_SUCCESS: {
       return {
         ...state,
+        isLoggingIn: false,
         isLoggedIn: true,
         isLoading: false,
         myInfo: dummyUser
@@ -92,8 +93,10 @@ const reducer = (state = initialState, action) => {
     case LOG_IN_FAILURE: {
       return {
         ...state,
+        isLoggingIn: false,
         isLoggedIn: false,
         isLoading: false,
+        loginErrorDetail: action.error,
         myInfo: null
       }
     }
@@ -107,7 +110,24 @@ const reducer = (state = initialState, action) => {
     case SIGN_UP_REQUEST: {
       return {
         ...state,
+        isSigningUp: true,
+        isSignedUp: false,
+        signUpErrorDetail: ""
+      }
+    }
+    case SIGN_UP_SUCCESS: {
+      return {
+        ...state,
+        isSigningUp: false,
+        isSignedUp: true,
         userInfo: action.data
+      }
+    }
+    case SIGN_UP_FAILURE: {
+      return {
+        ...state,
+        isSigningUp: false,
+        signUpErrorDetail: action.error
       }
     }
     default: {
@@ -117,5 +137,3 @@ const reducer = (state = initialState, action) => {
     }
   }
 }
-
-export default reducer
