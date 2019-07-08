@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import { Form, Input, Checkbox, Button } from "antd"
 import { signUpRequestAction } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux"
+import Router from "next/router"
 
 // custom hook
 export const userInput = (initialValue = null) => {
@@ -22,7 +23,13 @@ const Register = () => {
   const [name, onChangeName] = userInput("")
   const [password, onChangePassword] = userInput("")
   const dispatch = useDispatch()
-  const { isSigningUp } = useSelector(state => state.user)
+  const { isSigningUp, myInfo } = useSelector(state => state.user)
+
+  useEffect(() => {
+    if (myInfo) {
+      Router.push("/")
+    }
+  }, [myInfo && myInfo.id])
 
   // useCallback to reduce unnecessary rendering 
   // when event handler functions are called

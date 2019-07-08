@@ -36,15 +36,13 @@ const PostForm = ({ data }) => {
         <Button type="primary" style={{ float: "right" }} htmlType="submit" loading={isAddingPost}>Post</Button>
       </div>
       <div>
-        {data.map((value) => {
-          return (
-            <div key={value} style={{ display: "inline-block" }}>
-              <img src={"http://localhost:3000/" + value} style={{ width: "200px" }} alt={value} />
-              <div>
-                <Button>Remove</Button>
-              </div>
+        {data.map((imagePath) => {
+          <div key={imagePath} style={{ display: "inline-block" }}>
+            <img src={`http://localhost:3000/${imagePath}`} style={{ width: "200px" }} alt={imagePath} />
+            <div>
+              <Button>Remove</Button>
             </div>
-          )
+          </div>
         })}
       </div>
     </Form>
