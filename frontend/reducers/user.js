@@ -14,6 +14,7 @@ export const initialState = {
 }
 
 const dummyUser = {
+  id: 1,
   name: "Maison Margiella",
   post: [],
   following: [],
