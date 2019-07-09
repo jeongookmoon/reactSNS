@@ -146,7 +146,7 @@ export default (state = initialState, action) => {
         ...state,
         isAddingComment: false,
         commentAdded: true,
-        mainPosts: [dummyPost, ...state.mainPosts]
+        mainPosts
       }
     }
     case ADD_COMMENT_FAILURE: {

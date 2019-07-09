@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useEffect } from "react"
 import { Card, Icon, Button, Avatar, Input, List, Form, Comment } from "antd"
 import PropTypes from "prop-types"
 import { useSelector, useDispatch } from "react-redux"
@@ -8,6 +8,7 @@ const PostCard = ({ data }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false)
   const [commentText, setCommentText] = useState("")
   const { myInfo } = useSelector(state => state.user)
+  const { commentAdded, isAddingComment } = useSelector(state => state.post)
   const dispatch = useDispatch()
 
   const onToggleComment = useCallback(() => {
@@ -26,6 +27,10 @@ const PostCard = ({ data }) => {
       }
     })
   }, [myInfo && myInfo.id])
+
+  useEffect(() => {
+    setCommentText("")
+  }, [commentAdded === true])
 
   const onChangeCommentText = useCallback((event) => {
     setCommentText(event.target.value)
@@ -57,7 +62,7 @@ const PostCard = ({ data }) => {
             <Form.Item>
               <Input.TextArea rows={4} value={commentText} onChange={onChangeCommentText} />
             </Form.Item>
-            <Button type="primary" htmlType="submit">Comment</Button>
+            <Button type="primary" htmlType="submit" loading={isAddingComment}>Comment</Button>
           </Form>
           <List
             header={`${data.comments ? data.comments.length : 0} comments`}
@@ -69,7 +74,6 @@ const PostCard = ({ data }) => {
                   author={item.User.name}
                   avatar={<Avatar>{item.User.name[0]}</Avatar>}
                   content={item.content}
-                  datetime={item.createdAt}
                 />
               </li>
             )}

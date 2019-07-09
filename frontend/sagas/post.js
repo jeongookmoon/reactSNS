@@ -36,7 +36,7 @@ function* addComment(action) {
     yield put({
       type: ADD_COMMENT_SUCCESS,
       data: {
-        postId: action.data.postID
+        postId: action.data.postId
       }
     })
   } catch (error) {
