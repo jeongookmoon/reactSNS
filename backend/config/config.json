@@ -1,24 +1,24 @@
 {
   "development": {
-    "username": "root",
-    "password": "rootpassword",
-    "database": "react-sns",
+    "username": "react-sns-admin",
+    "password": "react-sns-password",
+    "database": "reactSns",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
-    "username": "root",
-    "password": "rootpassword",
-    "database": "react-sns",
+    "username": "react-sns-admin",
+    "password": "react-sns-password",
+    "database": "reactSns",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": "rootpassword",
-    "database": "react-sns",
+    "username": "react-sns-admin",
+    "password": "react-sns-password",
+    "database": "reactSns",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
