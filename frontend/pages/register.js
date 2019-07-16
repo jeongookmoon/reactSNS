@@ -41,7 +41,7 @@ const Register = () => {
       return setTermError(true)
     dispatch(signUpRequestAction(
       {
-        id,
+        userId: id,
         name,
         password
       }
