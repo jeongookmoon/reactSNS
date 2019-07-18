@@ -30,14 +30,14 @@ function* watchLogin() {
   yield takeEvery(LOG_IN_REQUEST, login)
 }
 
-function signUpAPI() {
+function signUpAPI(signUpData) {
   // make request to server regarding login action
+  return axios.post("http://localhost:8080//api/user/", signUpData)
 }
 
-function* signUp() {
+function* signUp(action) {
   try {
-    yield delay(1000)
-    // yield call(signUpAPI)
+    yield call(signUpAPI, action.data)
     // put == dispatch
     yield put({
       type: SIGN_UP_SUCCESS
