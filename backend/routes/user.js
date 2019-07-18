@@ -7,7 +7,7 @@ router.get("/", (request, response) => {
 
 })
 
-router.post("/", (request, response, next) => {
+router.post("/", async (request, response, next) => {
   try {
     const existingUser = await db.User.findOne({
       where: {
