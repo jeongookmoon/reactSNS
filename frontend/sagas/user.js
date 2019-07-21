@@ -32,7 +32,7 @@ function* watchLogin() {
 
 function signUpAPI(signUpData) {
   // make request to server regarding login action
-  return axios.post("http://localhost:8080//api/user/", signUpData)
+  return axios.post("http://localhost:8080/api/user/", signUpData)
 }
 
 function* signUp(action) {
