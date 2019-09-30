@@ -1,20 +1,26 @@
-const passport = require("passport")
-const db = require("../models")
+const passport = require("passport");
+const { Strategy: LocalStrategy } = require("passport-local");
+const bcrypt = require("bcrypt");
+const db = require("../models");
 
 module.exports = () => {
-  passport.serializeUser((user, done) => {
-    // [{ id: 1. cookie: "asdf"}]
-    return done(null, user.id)
-  })
-
-  passport.deserializeUser(async (id, done) => {
+  passport.use(new LocalStrategy({
+    usernameField: "userId",
+    passwordField: "password",
+  }, async (userID, password, done) => {
     try {
-      const user = await db.User.findOne({
-        where: { id }
-      })
-      return done(null, user)
+      const user = await db.User.findOne({ where: { userID } });
+      if (!user) {
+        return done(null, false, { reason: "User does not exist" });
+      }
+      const result = await bcrypt.compare(password, user.password);
+      if (result) {
+        return done(null, user);
+      }
+      return done(null, false, { reason: "Wrong password" });
     } catch (error) {
-      return done(error)
+      console.error(error);
+      return done(error);
     }
-  })
-}
+  }));
+};

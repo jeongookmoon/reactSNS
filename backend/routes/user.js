@@ -1,5 +1,6 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
+const passport = require("passport")
 const db = require("../models")
 const router = express.Router()
 
@@ -35,8 +36,24 @@ router.get("/:id", (request, response) => {
 
 })
 
-router.post("/login", (request, response) => {
-
+router.post("/login", (request, response, next) => {
+  passport.authenticate("local", (error, user, info) => {
+    if (error) {
+      console.error(error);
+      return next(error);
+    }
+    if (info) {
+      return response.status(401).send(info.reason);
+    }
+    return request.login(user, (loginError) => {
+      if (loginError) {
+        return next(loginError)
+      }
+      const filteredUser = Object.assign({}, user)
+      delete filteredUser.password
+      return response.json(filteredUser)
+    })
+  })
 })
 
 router.post("/logout", (request, response) => {

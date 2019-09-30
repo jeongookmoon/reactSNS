@@ -5,14 +5,14 @@ import {
 } from "../reducers/user";
 import axios from "axios"
 
-function loginAPI() {
+function loginAPI(loginData) {
   // make request to server regarding login action
-  return axios.post("/login")
+  return axios.post("/login", loginData)
 }
 
-function* login() {
+function* login(action) {
   try {
-    yield delay(1000)
+    yield delay(loginAPI, action.data)
     // yield call(loginAPI)
     // put == dispatch
     yield put({
