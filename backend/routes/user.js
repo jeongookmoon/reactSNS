@@ -49,15 +49,18 @@ router.post("/login", (request, response, next) => {
       if (loginError) {
         return next(loginError)
       }
-      const filteredUser = Object.assign({}, user)
+      console.log("logic success".user)
+      const filteredUser = Object.assign({}, user.toJSON())
       delete filteredUser.password
       return response.json(filteredUser)
     })
-  })
+  })(request, response, next)
 })
 
 router.post("/logout", (request, response) => {
-
+  request.logout()
+  request.session.destroy()
+  response.send("Logout complete")
 })
 
 router.get("/:id/follow", (request, response) => {

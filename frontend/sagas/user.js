@@ -1,22 +1,24 @@
-import { all, fork, takeEvery, call, put, delay } from "redux-saga/effects"
+import { all, fork, takeEvery, call, put } from "redux-saga/effects"
 import {
   LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
   SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE
 } from "../reducers/user";
 import axios from "axios"
 
+axios.defaults.baseURL = "http://localhost:8080/api"
+
 function loginAPI(loginData) {
   // make request to server regarding login action
-  return axios.post("/login", loginData)
+  return axios.post("/user/login", loginData)
 }
 
 function* login(action) {
   try {
-    yield delay(loginAPI, action.data)
-    // yield call(loginAPI)
+    const result = yield call(loginAPI, action.data)
     // put == dispatch
     yield put({
-      type: LOG_IN_SUCCESS
+      type: LOG_IN_SUCCESS,
+      data: result.data
     })
   } catch (error) {
     console.error(error)
@@ -32,7 +34,7 @@ function* watchLogin() {
 
 function signUpAPI(signUpData) {
   // make request to server regarding login action
-  return axios.post("http://localhost:8080/api/user/", signUpData)
+  return axios.post("/user/", signUpData)
 }
 
 function* signUp(action) {

@@ -88,7 +88,7 @@ export default (state = initialState, action) => {
         isLoggingIn: false,
         isLoggedIn: true,
         isLoading: false,
-        myInfo: dummyUser
+        myInfo: action.data
       }
     }
     case LOG_IN_FAILURE: {
