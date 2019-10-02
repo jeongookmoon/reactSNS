@@ -2,14 +2,16 @@ import { all, fork, takeEvery, call, put } from "redux-saga/effects"
 import {
   LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
   SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE
-} from "../reducers/user";
+} from "../reducers/user"
 import axios from "axios"
 
 axios.defaults.baseURL = "http://localhost:8080/api"
 
 function loginAPI(loginData) {
   // make request to server regarding login action
-  return axios.post("/user/login", loginData)
+  return axios.post("/user/login", loginData, {
+    withCredentials: true
+  })
 }
 
 function* login(action) {

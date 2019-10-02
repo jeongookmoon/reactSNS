@@ -45,14 +45,32 @@ router.post("/login", (request, response, next) => {
     if (info) {
       return response.status(401).send(info.reason);
     }
-    return request.login(user, (loginError) => {
-      if (loginError) {
-        return next(loginError)
+    return request.login(user, async (loginError) => {
+      try {
+        if (loginError) {
+          return next(loginError)
+        }
+        const fullUser = await db.User.findOne({
+          where: { id: user.id },
+          include: [{
+            model: db.Post,
+            as: "Posts",
+            attributes: ["id"]
+          }, {
+            model: db.User,
+            as: "Followings",
+            attributes: ["id"]
+          }, {
+            model: db.User,
+            as: "Followers",
+            attributes: ["id"]
+          }],
+          attributes: ['id', 'nickname', 'userId']
+        })
+        return response.json(fullUser)
+      } catch (error) {
+        next(error)
       }
-      console.log("logic success".user)
-      const filteredUser = Object.assign({}, user.toJSON())
-      delete filteredUser.password
-      return response.json(filteredUser)
     })
   })(request, response, next)
 })
