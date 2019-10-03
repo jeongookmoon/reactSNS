@@ -65,7 +65,7 @@ router.post("/login", (request, response, next) => {
             as: "Followers",
             attributes: ["id"]
           }],
-          attributes: ['id', 'nickname', 'userId']
+          attributes: ['id', 'name', 'userId']
         })
         return response.json(fullUser)
       } catch (error) {

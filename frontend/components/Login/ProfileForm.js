@@ -15,9 +15,9 @@ const ProfileForm = ({ data }) => {
   return (
     <Card
       actions={[
-        // <div key="like">Like<br />{data.post.length}</div>,
-        // <div key="following">Following<br />{data.following.length}</div>,
-        // <div key="follower">Followers<br />{data.follower.length}</div>
+        <div key="like">Like<br />{data.Posts.length}</div>,
+        <div key="following">Following<br />{data.Followings.length}</div>,
+        <div key="follower">Followers<br />{data.Followers.length}</div>
       ]}
     >
       <Card.Meta
