@@ -1,5 +1,4 @@
 export const initialState = {
-  isLoggedIn: false,
   isLoggingIn: false,
   isLoggingOut: false,
   loginErrorDetail: "",
@@ -11,15 +10,6 @@ export const initialState = {
   followerList: [],
   myInfo: null,
   userInfo: null
-}
-
-const dummyUser = {
-  id: 1,
-  name: "Maison Margiella",
-  post: [],
-  following: [],
-  follower: [],
-  userInfo: {}
 }
 
 // Action Name
@@ -86,7 +76,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: false,
-        isLoggedIn: true,
         isLoading: false,
         myInfo: action.data
       }
@@ -95,7 +84,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: false,
-        isLoggedIn: false,
         isLoading: false,
         loginErrorDetail: action.error,
         myInfo: null
@@ -104,7 +92,13 @@ export default (state = initialState, action) => {
     case LOG_OUT_REQUEST: {
       return {
         ...state,
-        isLoggedIn: false,
+        isLoggingOut: true
+      }
+    }
+    case LOG_OUT_SUCCESS: {
+      return {
+        ...state,
+        isLoggingOut: false,
         myInfo: null
       }
     }
@@ -129,6 +123,22 @@ export default (state = initialState, action) => {
         ...state,
         isSigningUp: false,
         signUpErrorDetail: action.error
+      }
+    }
+    case LOAD_USER_REQUEST: {
+      return {
+        ...state
+      }
+    }
+    case LOAD_USER_SUCCESS: {
+      return {
+        ...state,
+        userInfo: action.data
+      }
+    }
+    case LOAD_USER_FAILURE: {
+      return {
+        ...state,
       }
     }
     default: {

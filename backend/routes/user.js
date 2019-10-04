@@ -5,7 +5,12 @@ const db = require("../models")
 const router = express.Router()
 
 router.get("/", (request, response) => {
-
+  if (!request.user) {
+    return response.status(401).send("Need to login")
+  }
+  const user = Object.assign({}, request.user.toJSON())
+  delete user.password
+  return response.json(request.user)
 })
 
 router.post("/", async (request, response, next) => {
