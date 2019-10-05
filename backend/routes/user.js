@@ -10,6 +10,7 @@ router.get("/", (request, response) => {
   }
   const user = Object.assign({}, request.user.toJSON())
   delete user.password
+  console.log("user", user)
   return response.json(request.user)
 })
 
