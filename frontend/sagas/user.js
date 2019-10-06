@@ -7,8 +7,6 @@ import {
 } from "../reducers/user"
 import axios from "axios"
 
-axios.defaults.baseURL = "http://localhost:8080/api"
-
 function loginAPI(loginData) {
   // make request to server regarding login action
   return axios.post("/user/login", loginData, {

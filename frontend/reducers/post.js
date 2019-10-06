@@ -116,7 +116,7 @@ export default (state = initialState, action) => {
         ...state,
         isAddingPost: false,
         postAdded: true,
-        mainPosts: [dummyPost, ...state.mainPosts]
+        mainPosts: [action.data, ...state.mainPosts]
       }
     }
     case ADD_POST_FAILURE: {
