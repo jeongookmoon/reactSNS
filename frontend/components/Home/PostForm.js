@@ -15,13 +15,14 @@ const PostForm = ({ data }) => {
 
   const onSubmitForm = useCallback((event) => {
     event.preventDefault()
+    console.log("did run???")
     dispatch({
       type: ADD_POST_REQUEST,
       data: {
-        text
+        content: text
       }
     })
-  }, [])
+  }, [text])
 
   const onChangeText = useCallback((event) => {
     setText(event.target.value)

@@ -14,11 +14,11 @@ const ProfileForm = ({ data }) => {
 
   return (
     <Card
-      actions={[
-        <div key="like">Like<br />{data.Posts.length}</div>,
-        <div key="following">Following<br />{data.Followings.length}</div>,
-        <div key="follower">Followers<br />{data.Followers.length}</div>
-      ]}
+    // actions={[
+    //   <div key="like">Like<br />{data.Posts.length}</div>,
+    //   <div key="following">Following<br />{data.Followings.length}</div>,
+    //   <div key="follower">Followers<br />{data.Followers.length}</div>
+    // ]}
     >
       <Card.Meta
         avatar={<Avatar>{data.name[0]}</Avatar>}

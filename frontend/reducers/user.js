@@ -133,7 +133,7 @@ export default (state = initialState, action) => {
     case LOAD_USER_SUCCESS: {
       return {
         ...state,
-        userInfo: action.data
+        myInfo: action.data
       }
     }
     case LOAD_USER_FAILURE: {
