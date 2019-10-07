@@ -15,7 +15,9 @@ const PostForm = ({ data }) => {
 
   const onSubmitForm = useCallback((event) => {
     event.preventDefault()
-    console.log("did run???")
+    if (!text || !text.trim()) {
+      alert("Please write content")
+    }
     dispatch({
       type: ADD_POST_REQUEST,
       data: {

@@ -10,8 +10,6 @@ import { LOAD_USER_REQUEST } from "../reducers/user"
 const AppLayout = ({ children }) => {
   const { myInfo, userInfo } = useSelector(state => state.user)
   const dispatch = useDispatch()
-  console.log("myInfo", myInfo)
-  console.log("userInfo", userInfo)
   useEffect(() => {
     if (!myInfo) {
       dispatch({

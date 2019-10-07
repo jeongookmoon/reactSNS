@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { ADD_COMMENT_REQUEST } from "../../reducers/post";
 
 const PostCard = ({ data }) => {
+  console.log('postcarddata', data)
   const [commentFormOpened, setCommentFormOpened] = useState(false)
   const [commentText, setCommentText] = useState("")
   const { myInfo } = useSelector(state => state.user)
@@ -51,7 +52,7 @@ const PostCard = ({ data }) => {
         style={{ marginBottom: "3.5vh" }}
       >
         <Card.Meta
-          avatar={<Avatar>{data.User.name[0]}</Avatar>}
+          avatar={<Avatar>{data.User.name}</Avatar>}
           title={data.User.name}
           description={data.content}
         />
@@ -72,7 +73,7 @@ const PostCard = ({ data }) => {
               <li>
                 <Comment
                   author={item.User.name}
-                  avatar={<Avatar>{item.User.name[0]}</Avatar>}
+                  avatar={<Avatar>{item.User.name}</Avatar>}
                   content={item.content}
                 />
               </li>

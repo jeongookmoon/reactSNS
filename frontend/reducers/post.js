@@ -156,6 +156,23 @@ export default (state = initialState, action) => {
         addCommentErrorDetail: action.error
       }
     }
+    case LOAD_MAIN_POSTS_REQUEST: {
+      return {
+        ...state,
+        mainPosts: []
+      }
+    }
+    case LOAD_MAIN_POSTS_SUCCESS: {
+      return {
+        ...state,
+        mainPosts: action.data
+      }
+    }
+    case LOAD_MAIN_POSTS_FAILURE: {
+      return {
+        ...state,
+      }
+    }
     default: {
       return {
         ...state

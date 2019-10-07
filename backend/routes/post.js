@@ -17,7 +17,6 @@ router.post("/", async (request, respose, next) => {
               name: tag.slice(1).toLowerCase()
             },
           })))
-      console.log('result', result)
       await newPost.addHashtags(result.map(filteredResult => filteredResult[0]))
     }
     const fullPost = await db.Post.findOne({
