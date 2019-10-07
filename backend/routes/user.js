@@ -10,7 +10,6 @@ router.get("/", (request, response) => {
   }
   const user = Object.assign({}, request.user.toJSON())
   delete user.password
-  console.log("user", user)
   return response.json(user)
 })
 
@@ -30,7 +29,6 @@ router.post("/", async (request, response, next) => {
       userId: request.body.userId,
       password: hashedPassword
     })
-    console.log("newUser", newUser)
     return response.status(200).json(newUser)
   } catch (error) {
     console.error(error)

@@ -1,12 +1,12 @@
-import { all, fork, takeLatest, put, delay } from "redux-saga/effects"
+import { all, fork, takeLatest, put, call, delay } from "redux-saga/effects"
 import axios from "axios"
 import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE
+  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
+  LOAD_MAIN_POSTS_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_FAILURE
 } from "../reducers/post";
 
 function addPostAPI(postData) {
-  console.log('ran before111')
   return axios.post("/post", postData, {
     withCredentials: true
   })
@@ -14,15 +14,12 @@ function addPostAPI(postData) {
 
 function* addPost(action) {
   try {
-    console.log('ran before')
     const result = yield call(addPostAPI, action.data)
-    console.log('ran')
     yield put({
       type: ADD_POST_SUCCESS,
       data: result.data
     })
   } catch (error) {
-    console.log("error", error)
     yield put({
       type: ADD_POST_FAILURE,
       error
@@ -32,6 +29,30 @@ function* addPost(action) {
 
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost)
+}
+
+function loadMainPostsAPI() {
+  return axios.get("/posts")
+}
+
+function* loadMainPosts() {
+  try {
+    const result = yield call(loadMainPostsAPI)
+    console.log('loadmainresult', result)
+    yield put({
+      type: LOAD_MAIN_POSTS_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: LOAD_MAIN_POSTS_FAILURE,
+      error
+    })
+  }
+}
+
+function* watchLoadMainPosts() {
+  yield takeLatest(LOAD_MAIN_POSTS_REQUEST, loadMainPosts)
 }
 
 function addCommentAPI() {
@@ -61,6 +82,7 @@ function* watchAddComment() {
 
 export default function* postSaga() {
   yield all([
+    fork(watchLoadMainPosts),
     fork(watchAddPost),
     fork(watchAddComment)
   ])
