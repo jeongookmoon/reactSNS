@@ -4,12 +4,12 @@ const router = express.Router()
 
 router.post("/", async (request, respose, next) => {
   try {
-    const hastags = request.body.content.match(/#[^\s]+/g)
+    const hashtags = request.body.content.match(/#[^\s]+/g)
     const newPost = await db.Post.create({
       content: request.body.content, // ex) 'Time to reorder #check #bank'
-      UserID: request.user.id,
+      UserId: request.user.id,
     })
-    if (hastags) {
+    if (hashtags) {
       const result = await Promise.all(
         hashtags.map(tag =>
           db.Hashtag.findOrCreate({
