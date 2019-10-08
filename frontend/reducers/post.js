@@ -1,27 +1,27 @@
 export const initialState = {
   mainPosts: [
-    {
-      id: 0,
-      User: {
-        id: 1,
-        name: "Maison Margiella"
-      },
-      content: "It's my first post!",
-      img: "https://www.maisonmargiela.com/assets/2017-01/_GAS0853_6.jpg",
-      createdAt: "06-23-2019 23:11:15",
-      comments: []
-    },
-    {
-      id: 1,
-      User: {
-        id: 2,
-        name: "Artist Panya"
-      },
-      content: "My first picture!",
-      img: "https://www.armani.com/cloud/armanif31wp/uploads/2018/06/Men_Fashion_Show_Spring_Summer_2019_Giorgio_Armani_VideoBTS.jpg",
-      createdAt: "06-23-2019 23:11:15",
-      comments: []
-    }
+    // {
+    //   id: 0,
+    //   User: {
+    //     id: 1,
+    //     name: "Maison Margiella"
+    //   },
+    //   content: "It's my first post!",
+    //   img: "https://www.maisonmargiela.com/assets/2017-01/_GAS0853_6.jpg",
+    //   createdAt: "06-23-2019 23:11:15",
+    //   comments: []
+    // },
+    // {
+    //   id: 1,
+    //   User: {
+    //     id: 2,
+    //     name: "Artist Panya"
+    //   },
+    //   content: "My first picture!",
+    //   img: "https://www.armani.com/cloud/armanif31wp/uploads/2018/06/Men_Fashion_Show_Spring_Summer_2019_Giorgio_Armani_VideoBTS.jpg",
+    //   createdAt: "06-23-2019 23:11:15",
+    //   comments: []
+    // }
   ],
   imagePaths: [], // path for image thumnails
   addPostErrorDetail: "",
@@ -32,17 +32,17 @@ export const initialState = {
   commentAdded: false
 }
 
-const dummyPost = {
-  id: 2,
-  User: {
-    id: 3,
-    name: "Ralph Lauren"
-  },
-  content: "Third post!!",
-  img: "https://cdn.shopify.com/s/files/1/0135/0280/8123/articles/Screen_Shot_2019-05-14_at_1.12.07_PM_1024x1024.png?v=1557855486",
-  createdAt: "07-05-2019 11:12:13",
-  comments: []
-}
+// const dummyPost = {
+//   id: 2,
+//   User: {
+//     id: 3,
+//     name: "Ralph Lauren"
+//   },
+//   content: "Third post!!",
+//   img: "https://cdn.shopify.com/s/files/1/0135/0280/8123/articles/Screen_Shot_2019-05-14_at_1.12.07_PM_1024x1024.png?v=1557855486",
+//   createdAt: "07-05-2019 11:12:13",
+//   comments: []
+// }
 
 const dummyComment = {
   id: 4,

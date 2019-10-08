@@ -22,7 +22,7 @@ const Home = () => {
       {myInfo && <PostForm data={imagePaths} />}
       {mainPosts.map(post => {
         return (
-          <PostCard key={post.User.id} data={post} />
+          <PostCard key={post.id} data={post} />
         )
       })
       }
