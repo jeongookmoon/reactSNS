@@ -44,15 +44,15 @@ export const initialState = {
 //   comments: []
 // }
 
-const dummyComment = {
-  id: 4,
-  User: {
-    id: 3,
-    name: "Ralph Lauren"
-  },
-  createdAt: new Date(),
-  content: "This is a example comment!!"
-}
+// const dummyComment = {
+//   id: 4,
+//   User: {
+//     id: 3,
+//     name: "Ralph Lauren"
+//   },
+//   createdAt: new Date(),
+//   content: "This is a example comment!!"
+// }
 
 export const LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST"
 export const LOAD_MAIN_POSTS_SUCCESS = "LOAD_MAIN_POSTS_SUCCESS"
@@ -138,7 +138,7 @@ export default (state = initialState, action) => {
       // to update the comment for the post and keep the rest
       const postIndex = state.mainPosts.findIndex(post => post.id === action.data.postId)
       const post = state.mainPosts[postIndex]
-      const comments = [...post.comments, dummyComment]
+      const comments = [...post.comments, action.data.comment]
       const mainPosts = [...state.mainPosts]
       mainPosts[postIndex] = { ...post, comments }
 
