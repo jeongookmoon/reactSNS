@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { ADD_COMMENT_REQUEST } from "../../reducers/post"
 
 const PostCard = ({ data }) => {
-  console.log('postcarddata', data)
   const [commentFormOpened, setCommentFormOpened] = useState(false)
   const [commentText, setCommentText] = useState("")
   const { myInfo } = useSelector(state => state.user)

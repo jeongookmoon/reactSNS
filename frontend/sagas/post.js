@@ -38,7 +38,6 @@ function loadMainPostsAPI() {
 function* loadMainPosts() {
   try {
     const result = yield call(loadMainPostsAPI)
-    console.log('loadmainresult', result)
     yield put({
       type: LOAD_MAIN_POSTS_SUCCESS,
       data: result.data
