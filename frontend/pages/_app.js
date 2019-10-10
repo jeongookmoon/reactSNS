@@ -12,7 +12,7 @@ import rootSaga from "../sagas"
 import createSagaMiddleware from "redux-saga"
 
 // using Next's component as prop, use other page as a child
-const ReactSNS = ({ Component, store }) => {
+const ReactSNS = ({ Component, store, pageProps }) => {
   return (
     // since Provider is root, all children components can receive store state
     // store contains all the reducers
@@ -23,15 +23,27 @@ const ReactSNS = ({ Component, store }) => {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.19.0/antd.js" />
       </Head>
       <AppLayout >
-        <Component />
+        <Component {...pageProps} />
       </AppLayout>
     </Provider>
   )
 }
 
 ReactSNS.propTypes = {
-  Component: PropTypes.elementType,
-  store: PropTypes.object
+  Component: PropTypes.elementType.isRequired,
+  store: PropTypes.object.isRequired,
+  pageProps: PropTypes.object.isRequired
+}
+
+// Next initializes
+ReactSNS.getInitialProps = async (context) => {
+  console.log('context', context)
+  const { ctx, Component } = context
+  let pageProps = {}
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx)
+  }
+  return { pageProps }
 }
 
 const configureStore = (initialState, options) => {
