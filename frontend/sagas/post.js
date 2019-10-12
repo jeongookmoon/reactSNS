@@ -60,9 +60,9 @@ function loadHashtagPostsAPI(tag) {
   return axios.get(`/hashtag/${tag}`)
 }
 
-function* loadHashtagPosts() {
+function* loadHashtagPosts(action) {
   try {
-    const result = yield call(loadHashtagPostsAPI)
+    const result = yield call(loadHashtagPostsAPI, action.data)
     yield put({
       type: LOAD_HASHTAG_POSTS_SUCCESS,
       data: result.data
