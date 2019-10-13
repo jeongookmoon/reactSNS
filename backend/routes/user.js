@@ -36,8 +36,34 @@ router.post("/", async (request, response, next) => {
   }
 })
 
-router.get("/:id", (request, response) => {
-
+router.get("/:id", async (request, response, next) => {
+  try {
+    const user = await db.User.findOne({
+      where: { id: parseInt(request.params.id, 10) },
+      include: [{
+        model: db.Post,
+        as: "Posts",
+        attributes: ["id"]
+      }, {
+        model: db.User,
+        as: "Followings",
+        attributes: ["id"],
+      }, {
+        model: db.User,
+        as: "Followers",
+        attributes: ["id"]
+      }],
+      attributes: ["id", "name"]
+    })
+    const jsonUser = user.toJson()
+    jsonUser.Posts = jsonUser.Posts ? jsonUser.Posts.length : 0
+    jsonUser.Followings = jsonUser.Followings ? jsonUser.Followings.length : 0
+    jsonUser.Followers = jsonUser.Followers ? jsonUser.Followers.length : 0
+    request.json(jsonuser)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
 })
 
 router.post("/login", (request, response, next) => {
@@ -101,8 +127,23 @@ router.delete("/:id/follower", (request, response) => {
 
 })
 
-router.get("/:id/posts", (request, response) => {
-
+router.get("/:id/posts", async (request, response, next) => {
+  try {
+    const posts = await db.Posts.findAll({
+      where: {
+        UserId: parseInt(request.params.id, 10),
+        RetweetId: null
+      },
+      include: [{
+        model: db.User,
+        attributes: ["id", "name"]
+      }]
+    })
+    response.json(posts)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
 })
 
 module.exports = router
