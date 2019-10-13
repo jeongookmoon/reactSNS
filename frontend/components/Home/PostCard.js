@@ -52,13 +52,13 @@ const PostCard = ({ data }) => {
         style={{ marginBottom: "3.5vh" }}
       >
         <Card.Meta
-          avatar={<Avatar>{data.User.name}</Avatar>}
+          avatar={<Link href={`/user/${data.User.id}`}><a><Avatar>{data.User.name[0]}</Avatar></a></Link>}
           title={data.User.name}
           description={(
             <div>{data.content.split(/(#[^\s]+)/g).map(word => {
               if (word.match(/#[^\s]+/)) {
                 return (
-                  <Link href="/hashtag" key={word}><a>{word}</a></Link>
+                  <Link href={`/hashtag/${word.slice(1)}`} key={word}><a>{word}</a></Link>
                 )
               }
               return word
