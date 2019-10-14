@@ -57,6 +57,7 @@ function* watchLoadMainPosts() {
 }
 
 function loadHashtagPostsAPI(tag) {
+  console.log('hashtag ran')
   return axios.get(`/hashtag/${tag}`)
 }
 

@@ -42,6 +42,7 @@ ReactSNS.getInitialProps = async (context) => {
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx)
   }
+  console.log('pageProps', pageProps)
   return { pageProps }
 }
 

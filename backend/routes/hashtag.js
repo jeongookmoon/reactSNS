@@ -3,9 +3,10 @@ const db = require("../models")
 
 const router = express.Router()
 
-router.get("/:tag", async (request, response, next) => {
+router.get(`/:tag`, async (request, response, next) => {
   try {
-    const posts = await db.Posts.findAll({
+    console.log('ran')
+    const posts = await db.Post.findAll({
       include: [{
         model: db.Hashtag,
         where: { name: decodeURIComponent(request.params.tag) }
