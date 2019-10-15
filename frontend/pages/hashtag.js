@@ -15,10 +15,13 @@ const Hashtag = ({ tag }) => {
     })
   }, [])
 
+  console.log('mainPosts', mainPosts)
+
   return (
     <div>
       {mainPosts.map(content => {
-        <PostCard key={+content.createdAt} post={content} />
+        { console.log('content', content) }
+        <PostCard key={+content.createdAt} data={content} />
       })}
     </div>
   )
