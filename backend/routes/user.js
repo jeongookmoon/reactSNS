@@ -129,7 +129,7 @@ router.delete("/:id/follower", (request, response) => {
 
 router.get("/:id/posts", async (request, response, next) => {
   try {
-    const posts = await db.Posts.findAll({
+    const posts = await db.Post.findAll({
       where: {
         UserId: parseInt(request.params.id, 10),
         RetweetId: null
