@@ -12,7 +12,8 @@ router.get("/:tag", async (request, response, next) => {
       }, {
         model: db.User,
         attributes: ["id", "name"]
-      }]
+      }],
+      order: [["createdAt", "DESC"]]
     })
     response.json(posts)
   } catch (error) {

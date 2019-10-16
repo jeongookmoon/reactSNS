@@ -11,7 +11,6 @@ const PostCard = ({ data }) => {
   const { myInfo } = useSelector(state => state.user)
   const { commentAdded, isAddingComment } = useSelector(state => state.post)
   const dispatch = useDispatch()
-
   const onToggleComment = useCallback(() => {
     setCommentFormOpened(prev => !prev)
   }, [])

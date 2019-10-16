@@ -3,20 +3,20 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 import { Menu, Input, Row, Col } from 'antd'
 import LoginForm from "./Login/LoginForm"
-import ProfileFrom from "./Login/ProfileForm"
+import ProfileForm from "./Login/ProfileForm"
 import { useSelector, useDispatch } from "react-redux"
 import { LOAD_USER_REQUEST } from "../reducers/user"
+import { LOAD_USER_POSTS_REQUEST } from "../reducers/post"
 
 const AppLayout = ({ children }) => {
   const { myInfo, userInfo } = useSelector(state => state.user)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (!myInfo) {
-      dispatch({
-        type: LOAD_USER_REQUEST
-      })
-    }
+    dispatch({
+      type: LOAD_USER_REQUEST
+    })
   }, [])
+
   return (
     <div>
       <Menu mode="horizontal">
@@ -29,7 +29,7 @@ const AppLayout = ({ children }) => {
       <Row gutter={10} style={{ maxWidth: "100%" }}>
         <Col xs={23} md={6}>
           {myInfo ?
-            <ProfileFrom data={myInfo} />
+            <ProfileForm data={myInfo} />
             :
             <LoginForm />
           }

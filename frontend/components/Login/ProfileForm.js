@@ -11,7 +11,6 @@ const ProfileForm = ({ data }) => {
   const logout = useCallback(() => {
     dispatch(logoutRequestAction)
   }, [])
-  console.log('ProfileForm data', data)
 
   return (
     <Card

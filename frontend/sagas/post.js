@@ -57,14 +57,12 @@ function* watchLoadMainPosts() {
 }
 
 function loadHashtagPostsAPI(tag) {
-  console.log('hashtag ran', tag)
   return axios.get(`/hashtag/${tag}`)
 }
 
 function* loadHashtagPosts(action) {
   try {
     const result = yield call(loadHashtagPostsAPI, action.data)
-    console.log('result', result)
     yield put({
       type: LOAD_HASHTAG_POSTS_SUCCESS,
       data: result.data
@@ -78,7 +76,6 @@ function* loadHashtagPosts(action) {
 }
 
 function* watchLoadHashtagPosts() {
-  console.log('sdzcc')
   yield takeLatest(LOAD_HASHTAG_POSTS_REQUEST, loadHashtagPosts)
 }
 
