@@ -7,21 +7,19 @@ import PostCard from "../components/Home/PostCard"
 const Hashtag = ({ tag }) => {
   const dispatch = useDispatch()
   const { mainPosts } = useSelector(state => state.post)
-
   useEffect(() => {
     dispatch({
       type: LOAD_HASHTAG_POSTS_REQUEST,
       data: tag,
     })
   }, [])
-
-  console.log('mainPosts', mainPosts)
-
   return (
     <div>
+      <div>hi</div>
       {mainPosts.map(content => {
-        { console.log('content', content) }
-        <PostCard key={+content.createdAt} data={content} />
+        return (
+          <PostCard key={content.createdAt.toString()} data={content} />
+        )
       })}
     </div>
   )
@@ -32,7 +30,6 @@ Hashtag.propTypes = {
 }
 
 Hashtag.getInitialProps = async (context) => {
-  console.log('Hashtag getInitialProps', context.query.tag)
   return { tag: context.query.tag }
 }
 

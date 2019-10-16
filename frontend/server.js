@@ -31,8 +31,6 @@ app.prepare().then(() => {
   }))
 
   server.get("/hashtag/:tag", (request, response) => {
-    console.log('executed!!!')
-    console.log('request.params.tag', request.params.tag)
     return app.render(request, response, "/hashtag", { tag: request.params.tag })
   })
 

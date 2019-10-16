@@ -4,13 +4,33 @@ const passport = require("passport")
 const db = require("../models")
 const router = express.Router()
 
-router.get("/", (request, response) => {
+router.get("/", async (request, response, next) => {
   if (!request.user) {
     return response.status(401).send("Need to login")
   }
-  const user = Object.assign({}, request.user.toJSON())
-  delete user.password
-  return response.json(user)
+  try {
+    const fullUser = await db.User.findOne({
+      where: { id: request.user.id },
+      include: [{
+        model: db.Post,
+        as: "Posts",
+        attributes: ["id"]
+      }, {
+        model: db.User,
+        as: "Followings",
+        attributes: ["id"]
+      }, {
+        model: db.User,
+        as: "Followers",
+        attributes: ["id"]
+      }],
+      attributes: ['id', 'name', 'userId']
+    })
+    return response.json(fullUser)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
 })
 
 router.post("/", async (request, response, next) => {
@@ -36,7 +56,7 @@ router.post("/", async (request, response, next) => {
   }
 })
 
-router.get("/:id", async (request, response, next) => {
+router.get("/:id/posts", async (request, response, next) => {
   try {
     const user = await db.User.findOne({
       where: { id: parseInt(request.params.id, 10) },
@@ -59,7 +79,7 @@ router.get("/:id", async (request, response, next) => {
     jsonUser.Posts = jsonUser.Posts ? jsonUser.Posts.length : 0
     jsonUser.Followings = jsonUser.Followings ? jsonUser.Followings.length : 0
     jsonUser.Followers = jsonUser.Followers ? jsonUser.Followers.length : 0
-    request.json(jsonuser)
+    return response.json(jsonUser)
   } catch (error) {
     console.error(error)
     next(error)
