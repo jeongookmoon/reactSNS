@@ -20,7 +20,7 @@ const Home = () => {
     <div>
       {myInfo ? <div>{myInfo.name} logged in!</div> : <div></div>}
       {myInfo && <PostForm data={imagePaths} />}
-      {mainPosts.map(post => {
+      {mainPosts && mainPosts.map(post => {
         return (
           <PostCard key={post.id} data={post} />
         )

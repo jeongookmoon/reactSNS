@@ -15,8 +15,7 @@ const Hashtag = ({ tag }) => {
   }, [])
   return (
     <div>
-      <div>hi</div>
-      {mainPosts.map(content => {
+      {mainPosts && mainPosts.map(content => {
         return (
           <PostCard key={content.createdAt.toString()} data={content} />
         )

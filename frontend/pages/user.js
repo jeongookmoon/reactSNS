@@ -9,18 +9,18 @@ import { LOAD_USER_REQUEST } from "../reducers/user"
 const User = ({ id }) => {
   const dispatch = useDispatch()
   const { mainPosts } = useSelector(state => state.post)
-  const { userInfo } = useSelector(state => state.user)
+  const { userInfo, myInfo } = useSelector(state => state.user)
 
   useEffect(() => {
     dispatch({
       type: LOAD_USER_REQUEST,
       data: id
-    })
+    });
     dispatch({
       type: LOAD_USER_POSTS_REQUEST,
       data: id
-    })
-  }, [])
+    });
+  }, [mainPosts, userInfo, myInfo])
 
   return (
     <div>
@@ -36,9 +36,8 @@ const User = ({ id }) => {
             title={userInfo.name}
           />
         </Card>) : null}
-      {mainPosts.map(content => (
-        <PostCard key={content.createdAt.toString()} post={content} />
-      ))}
+      {console.log('mainPosts', mainPosts)}
+
     </div>
   )
 }
@@ -48,8 +47,8 @@ User.propTypes = {
 }
 
 User.getInitialProps = async (context) => {
-  User.log("user getInitialProps", context.query.id)
-  return { id: parseInt(context.query.id, 10) }
+  console.log("user getInitialProps", parseInt(context.query.tag, 10))
+  return { id: parseInt(context.query.tag, 10) }
 }
 
 export default User
