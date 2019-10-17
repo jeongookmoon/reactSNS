@@ -14,6 +14,7 @@ const PostCard = ({ data }) => {
   const onToggleComment = useCallback(() => {
     setCommentFormOpened(prev => !prev)
   }, [])
+  console.log('PostCard data', data)
 
   const onSubmitComment = useCallback((event) => {
     event.preventDefault()
@@ -51,13 +52,13 @@ const PostCard = ({ data }) => {
         style={{ marginBottom: "3.5vh" }}
       >
         <Card.Meta
-          avatar={<Link href={`/user/${data.User.id}`}><a><Avatar>{data.User.name[0]}</Avatar></a></Link>}
+          avatar={<Link href={{ pathname: "/user", query: { id: data.User.id } }} as={`/user/${data.User.id}`}><a><Avatar>{data.User.name[0]}</Avatar></a></Link>}
           title={data.User.name}
           description={(
             <div>{data.content.split(/(#[^\s]+)/g).map(word => {
               if (word.match(/#[^\s]+/)) {
                 return (
-                  <Link href={`/hashtag/${word.slice(1)}`} key={word}><a>{word}</a></Link>
+                  <Link href={{ pathname: "/hashtag", query: { tag: word.slice(1) } }} as={`/hashtag/${word.slice(1)}`} key={word}><a>{word}</a></Link>
                 )
               }
               return word
@@ -82,7 +83,7 @@ const PostCard = ({ data }) => {
               <li>
                 <Comment
                   author={item.User.name}
-                  avatar={<Avatar>{item.User.name}</Avatar>}
+                  avatar={<Link href={{ pathname: "/user", query: { id: item.User.id } }} as={`/user/${item.User.id}`}><a></a><Avatar>{item.User.name}</Avatar></Link>}
                   content={item.content}
                 />
               </li>
