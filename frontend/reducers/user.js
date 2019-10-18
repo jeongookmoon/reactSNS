@@ -114,8 +114,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isSigningUp: false,
-        isSignedUp: true,
-        userInfo: action.data
+        isSignedUp: true
       }
     }
     case SIGN_UP_FAILURE: {
@@ -131,10 +130,17 @@ export default (state = initialState, action) => {
       }
     }
     case LOAD_USER_SUCCESS: {
+      if (action.myInfo) {
+        return {
+          ...state,
+          myInfo: action.data
+        }
+      }
       return {
         ...state,
-        myInfo: action.data
+        userInfo: action.data
       }
+
     }
     case LOAD_USER_FAILURE: {
       return {
