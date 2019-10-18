@@ -6,10 +6,9 @@ import LoginForm from "./Login/LoginForm"
 import ProfileForm from "./Login/ProfileForm"
 import { useSelector, useDispatch } from "react-redux"
 import { LOAD_USER_REQUEST } from "../reducers/user"
-import { LOAD_USER_POSTS_REQUEST } from "../reducers/post"
 
 const AppLayout = ({ children }) => {
-  const { myInfo, userInfo } = useSelector(state => state.user)
+  const { myInfo } = useSelector(state => state.user)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch({

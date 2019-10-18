@@ -151,6 +151,7 @@ router.delete("/:id/follower", (request, response) => {
 router.get("/:id/posts", async (request, response, next) => {
   try {
     console.log('error here??')
+    console.log('parseInt(request.params.id, 10)', parseInt(request.params.id, 10))
     const posts = await db.Post.findAll({
       where: {
         UserId: parseInt(request.params.id, 10)
@@ -160,7 +161,7 @@ router.get("/:id/posts", async (request, response, next) => {
         attributes: ["id", "name"]
       }]
     })
-    response.json(posts)
+    return response.json(posts)
   } catch (error) {
     console.error(error)
     next(error)
