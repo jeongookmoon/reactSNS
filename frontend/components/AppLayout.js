@@ -11,11 +11,12 @@ const AppLayout = ({ children }) => {
   const { myInfo } = useSelector(state => state.user)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch({
-      type: LOAD_USER_REQUEST
-    })
+    if (!myInfo) {
+      dispatch({
+        type: LOAD_USER_REQUEST
+      })
+    }
   }, [])
-
   return (
     <div>
       <Menu mode="horizontal">
