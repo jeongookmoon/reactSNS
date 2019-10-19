@@ -14,7 +14,6 @@ const PostCard = ({ data }) => {
   const onToggleComment = useCallback(() => {
     setCommentFormOpened(prev => !prev)
   }, [])
-  console.log('PostCard data', data)
 
   const onSubmitComment = useCallback((event) => {
     event.preventDefault()

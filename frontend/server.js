@@ -35,7 +35,7 @@ app.prepare().then(() => {
   })
 
   server.get("/user/:id", (request, response) => {
-    return app.render(request, response, "/user", { tag: request.params.id })
+    return app.render(request, response, "/user", { id: request.params.id })
   })
 
   server.get("*", (request, response) => {
