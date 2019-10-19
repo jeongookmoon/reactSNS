@@ -130,7 +130,7 @@ export default (state = initialState, action) => {
       }
     }
     case LOAD_USER_SUCCESS: {
-      if (action.myInfo) {
+      if (!action.myInfo) {
         return {
           ...state,
           myInfo: action.data
