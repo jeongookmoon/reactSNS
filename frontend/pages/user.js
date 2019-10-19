@@ -11,8 +11,6 @@ const User = ({ id }) => {
   const { mainPosts } = useSelector(state => state.post)
   const { userInfo } = useSelector(state => state.user)
 
-  console.log('id', id)
-
   useEffect(() => {
     dispatch({
       type: LOAD_USER_REQUEST,
@@ -38,8 +36,8 @@ const User = ({ id }) => {
             title={userInfo.name}
           />
         </Card>) : null}
-      {userInfo && mainPosts && mainPosts.map(content => (
-        <PostCard key={content.createdAt.toString()} post={content} />
+      {mainPosts.map(content => (
+        <PostCard key={content.createdAt.toString()} data={content} />
       ))}
     </div>
   )
@@ -50,8 +48,6 @@ User.propTypes = {
 }
 
 User.getInitialProps = async (context) => {
-  console.log('context', context)
-  console.log("user getInitialProps", parseInt(context.query.id, 10))
   return { id: parseInt(context.query.id, 10) }
 }
 

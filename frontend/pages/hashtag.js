@@ -13,7 +13,7 @@ const Hashtag = ({ tag }) => {
       data: tag,
     })
   }, [])
-  console.log('tag', tag)
+
   return (
     <div>
       {mainPosts && mainPosts.map(content => {

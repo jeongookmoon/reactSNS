@@ -4,6 +4,7 @@ const passport = require("passport")
 const db = require("../models")
 const router = express.Router()
 
+
 router.get("/", async (request, response, next) => {
   if (!request.user) {
     return response.status(401).send("Need to login")
@@ -58,7 +59,6 @@ router.post("/", async (request, response, next) => {
 
 router.get("/:id", async (request, response, next) => {
   try {
-    console.log('ran!!')
     const user = await db.User.findOne({
       where: { id: parseInt(request.params.id, 10) },
       include: [{
@@ -150,8 +150,6 @@ router.delete("/:id/follower", (request, response) => {
 
 router.get("/:id/posts", async (request, response, next) => {
   try {
-    console.log('error here??')
-    console.log('parseInt(request.params.id, 10)', parseInt(request.params.id, 10))
     const posts = await db.Post.findAll({
       where: {
         UserId: parseInt(request.params.id, 10)
