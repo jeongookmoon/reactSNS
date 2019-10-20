@@ -27,7 +27,7 @@ const User = ({ id }) => {
       {userInfo ?
         (<Card
           actions={[
-            <div key="posts">Posts<br />{userInfo.posts}</div>,
+            <div key="posts">Posts<br />{userInfo.Posts}</div>,
             <div key="following">Following<br />{userInfo.Followings}</div>,
             <div key="follower">Follower<br />{userInfo.Followers}</div>
           ]}>

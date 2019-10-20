@@ -3,7 +3,7 @@ import { Card, Icon, Button, Avatar, Input, List, Form, Comment } from "antd"
 import Link from "next/link"
 import PropTypes from "prop-types"
 import { useSelector, useDispatch } from "react-redux"
-import { ADD_COMMENT_REQUEST } from "../../reducers/post"
+import { ADD_COMMENT_REQUEST, LOAD_COMMENTS_REQUEST } from "../../reducers/post"
 
 const PostCard = ({ data }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false)
@@ -13,6 +13,12 @@ const PostCard = ({ data }) => {
   const dispatch = useDispatch()
   const onToggleComment = useCallback(() => {
     setCommentFormOpened(prev => !prev)
+    if (!commentFormOpened) {
+      dispatch({
+        type: LOAD_COMMENTS_REQUEST,
+        data: data.id
+      })
+    }
   }, [])
 
   const onSubmitComment = useCallback((event) => {
@@ -23,10 +29,11 @@ const PostCard = ({ data }) => {
     dispatch({
       type: ADD_COMMENT_REQUEST,
       data: {
-        postId: data.id
+        postId: data.id,
+        content: commentText
       }
     })
-  }, [myInfo && myInfo.id])
+  }, [myInfo && myInfo.id, commentText])
 
   useEffect(() => {
     setCommentText("")
@@ -75,14 +82,14 @@ const PostCard = ({ data }) => {
             <Button type="primary" htmlType="submit" loading={isAddingComment}>Comment</Button>
           </Form>
           <List
-            header={`${data.comments ? data.comments.length : 0} comments`}
+            header={`${data.Comments ? data.Comments.length : 0} comments`}
             itemLayout="horizontal"
-            dataSource={data.comments || []}
+            dataSource={data.Comments || []}
             renderItem={item => (
               <li>
                 <Comment
                   author={item.User.name}
-                  avatar={<Link href={{ pathname: "/user", query: { id: item.User.id } }} as={`/user/${item.User.id}`}><a></a><Avatar>{item.User.name}</Avatar></Link>}
+                  avatar={<Link href={{ pathname: "/user", query: { id: item.User.id } }} as={`/user/${item.User.id}`}><a><Avatar>{item.User.name}</Avatar></a></Link>}
                   content={item.content}
                 />
               </li>
