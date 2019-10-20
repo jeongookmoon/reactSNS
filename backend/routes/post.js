@@ -36,4 +36,62 @@ router.post("/images", (request, respose) => {
 
 })
 
+router.get(`/:id/comments`, async (request, response, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: { id: request.params.id },
+    })
+
+    if (!post) {
+      return response.status(404).send("The post does not exist")
+    }
+
+    const comments = await db.Comment.findAll({
+      where: {
+        PostId: request.params.id
+      },
+      order: [["createdAt", "ASC"]],
+      include: [{
+        model: db.User,
+        attributes: ["id", "name"]
+      }]
+    })
+    response.json(comments)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+router.post(`/:id/comment`, async (request, response, next) => {
+  try {
+    if (!request.user) {
+      return response.status(401).send("Need to login")
+    }
+    const post = await db.Post.findOne({ where: { id: request.params.id } })
+    if (!post) {
+      return response.status(404).send("The post does not exist")
+    }
+    const newComment = await db.Comment.create({
+      PostId: post.id,
+      UserId: request.user.id,
+      content: request.body.content
+    })
+    await post.addComment(newComment.id) // sequeralizer looks at "Associate" function and "As" and add 
+    const comment = await db.Comment.findOne({
+      where: {
+        id: newComment.id
+      },
+      include: [{
+        model: db.User,
+        attributes: ["id", "name"]
+      }]
+    })
+    return response.json(comment)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 module.exports = router

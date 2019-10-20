@@ -1,4 +1,4 @@
-import { all, fork, takeLatest, put, call, delay } from "redux-saga/effects"
+import { all, fork, takeLatest, put, call } from "redux-saga/effects"
 import axios from "axios"
 import {
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
@@ -6,6 +6,7 @@ import {
   LOAD_MAIN_POSTS_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_FAILURE,
   LOAD_HASHTAG_POSTS_REQUEST, LOAD_HASHTAG_POSTS_SUCCESS, LOAD_HASHTAG_POSTS_FAILURE,
   LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_USER_POSTS_FAILURE,
+  LOAD_COMMENTS_REQUEST, LOAD_COMMENTS_SUCCESS, LOAD_COMMENTS_FAILURE
 } from "../reducers/post";
 
 function addPostAPI(postData) {
@@ -22,6 +23,7 @@ function* addPost(action) {
       data: result.data
     })
   } catch (error) {
+    console.error(error)
     yield put({
       type: ADD_POST_FAILURE,
       error
@@ -45,6 +47,7 @@ function* loadMainPosts() {
       data: result.data
     })
   } catch (error) {
+    console.error(error)
     yield put({
       type: LOAD_MAIN_POSTS_FAILURE,
       error
@@ -68,6 +71,7 @@ function* loadHashtagPosts(action) {
       data: result.data
     })
   } catch (error) {
+    console.error(error)
     yield put({
       type: LOAD_HASHTAG_POSTS_FAILURE,
       error
@@ -91,6 +95,7 @@ function* loadUserPosts(action) {
       data: result.data
     })
   } catch (error) {
+    console.error(error)
     yield put({
       type: LOAD_USER_POSTS_FAILURE,
       error
@@ -102,20 +107,25 @@ function* watchLoadUserPosts() {
   yield takeLatest(LOAD_USER_POSTS_REQUEST, loadUserPosts)
 }
 
-function addCommentAPI() {
-
+function addCommentAPI(data) {
+  return axios.post(`/post/${data.postId}/comment`, { content: data.content },
+    { withCredentials: true })
 }
 
 function* addComment(action) {
   try {
-    yield delay(1000)
+    const result = yield call(addCommentAPI, action.data)
+    console.log('result', result)
+    console.log('action.data', action.data)
     yield put({
       type: ADD_COMMENT_SUCCESS,
       data: {
-        postId: action.data.postId
+        postId: action.data.postId,
+        comment: result.data
       }
     })
   } catch (error) {
+    console.error(error)
     yield put({
       type: ADD_COMMENT_FAILURE,
       error
@@ -127,11 +137,39 @@ function* watchAddComment() {
   yield takeLatest(ADD_COMMENT_REQUEST, addComment)
 }
 
+function loadCommentsAPI(postId) {
+  return axios.get(`/post/${postId}/comments`)
+}
+
+function* loadComments(action) {
+  try {
+    const result = yield call(loadCommentsAPI, action.data)
+    yield put({
+      type: LOAD_COMMENTS_SUCCESS,
+      data: {
+        postId: action.data,
+        comments: result.data
+      }
+    })
+  } catch (error) {
+    console.error(error)
+    yield put({
+      type: LOAD_COMMENTS_FAILURE,
+      error
+    })
+  }
+}
+
+function* watchLoadComments() {
+  yield takeLatest(LOAD_COMMENTS_REQUEST, loadComments)
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchLoadMainPosts),
     fork(watchAddPost),
     fork(watchAddComment),
+    fork(watchLoadComments),
     fork(watchLoadHashtagPosts),
     fork(watchLoadUserPosts)
   ])

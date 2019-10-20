@@ -76,7 +76,7 @@ router.get("/:id", async (request, response, next) => {
       }],
       attributes: ["id", "name"]
     })
-    const jsonUser = user.toJson()
+    const jsonUser = user.toJSON()
     jsonUser.Posts = jsonUser.Posts ? jsonUser.Posts.length : 0
     jsonUser.Followings = jsonUser.Followings ? jsonUser.Followings.length : 0
     jsonUser.Followers = jsonUser.Followers ? jsonUser.Followers.length : 0
