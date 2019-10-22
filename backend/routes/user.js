@@ -3,12 +3,9 @@ const bcrypt = require("bcrypt")
 const passport = require("passport")
 const db = require("../models")
 const router = express.Router()
+const { isLoggedIn } = require("./middleware")
 
-
-router.get("/", async (request, response, next) => {
-  if (!request.user) {
-    return response.status(401).send("Need to login")
-  }
+router.get("/", isLoggedIn, async (request, response, next) => {
   try {
     const fullUser = await db.User.findOne({
       where: { id: request.user.id },
