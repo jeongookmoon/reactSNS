@@ -1,8 +1,9 @@
 const express = require("express")
 const db = require("../models")
 const router = express.Router()
+const { isLoggedIn } = require("./middleware")
 
-router.post("/", async (request, respose, next) => {
+router.post("/", isLoggedIn, async (request, respose, next) => {
   try {
     const hashtags = request.body.content.match(/#[^\s]+/g)
     const newPost = await db.Post.create({
@@ -63,11 +64,8 @@ router.get(`/:id/comments`, async (request, response, next) => {
   }
 })
 
-router.post(`/:id/comment`, async (request, response, next) => {
+router.post(`/:id/comment`, isLoggedIn, async (request, response, next) => {
   try {
-    if (!request.user) {
-      return response.status(401).send("Need to login")
-    }
     const post = await db.Post.findOne({ where: { id: request.params.id } })
     if (!post) {
       return response.status(404).send("The post does not exist")
