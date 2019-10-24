@@ -101,8 +101,28 @@ export const RETWEET_REQUEST = "RETWEET_REQUEST"
 export const RETWEET_SUCCESS = "RETWEET_SUCCESS"
 export const RETWEET_FAILURE = "RETWEET_FAILURE"
 
+export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST"
+export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS"
+export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE"
+
 export default (state = initialState, action) => {
   switch (action.type) {
+    case UPLOAD_IMAGES_REQUEST: {
+      return {
+        ...state
+      }
+    }
+    case UPLOAD_IMAGES_SUCCESS: {
+      return {
+        ...state,
+        image: [...state.imagePaths, ...action.data]
+      }
+    }
+    case UPLOAD_IMAGES_FAILURE: {
+      return {
+        ...state
+      }
+    }
     case ADD_POST_REQUEST: {
       return {
         ...state,
