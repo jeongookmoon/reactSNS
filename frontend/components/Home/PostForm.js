@@ -35,7 +35,7 @@ const PostForm = ({ data }) => {
     imageInput.current.click()
   }, [imageInput.current])
 
-  const onChangeImage = useCallback((event) => {
+  const onChangeImages = useCallback((event) => {
     console.log(event.target.files)
     const imageFormData = new FormData()
     [].forEach.call(event.target.files, (file) => {
