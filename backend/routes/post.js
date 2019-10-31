@@ -1,4 +1,5 @@
 const express = require("express")
+const multer = require("multer")
 const db = require("../models")
 const router = express.Router()
 const { isLoggedIn } = require("./middleware")
@@ -31,6 +32,12 @@ router.post("/", isLoggedIn, async (request, respose, next) => {
     console.error(error)
     next(error)
   }
+})
+
+const upload = multer({
+  storage: multer.diskStorage({
+
+  })
 })
 
 router.post("/images", (request, respose) => {
