@@ -101,10 +101,6 @@ export const RETWEET_REQUEST = "RETWEET_REQUEST"
 export const RETWEET_SUCCESS = "RETWEET_SUCCESS"
 export const RETWEET_FAILURE = "RETWEET_FAILURE"
 
-export const UPLOAD_IMAGES_REQUEST = "UPLOAD_IMAGES_REQUEST"
-export const UPLOAD_IMAGES_SUCCESS = "UPLOAD_IMAGES_SUCCESS"
-export const UPLOAD_IMAGES_FAILURE = "UPLOAD_IMAGES_FAILURE"
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case UPLOAD_IMAGES_REQUEST: {

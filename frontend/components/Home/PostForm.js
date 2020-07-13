@@ -8,7 +8,7 @@ const PostForm = ({ data }) => {
   const dispatch = useDispatch()
   const [text, setText] = useState()
   const { isAddingPost, postAdded } = useSelector(state => state.post)
-  const imageRef = useRef()
+  const imageInput = useRef()
 
   useEffect(() => {
     setText("")
@@ -37,7 +37,7 @@ const PostForm = ({ data }) => {
 
   const onChangeImages = useCallback((event) => {
     console.log(event.target.files)
-    const imageFormData = new FormData()
+    const imageFormData = new FormData();
     [].forEach.call(event.target.files, (file) => {
       imageFormData.append("image", file)
     })
@@ -51,7 +51,7 @@ const PostForm = ({ data }) => {
     <Form encType="multipart/form-data" onSubmit={onSubmitForm}>
       <Input.TextArea maxLength={140} placeholder="What's new?" value={text} onChange={onChangeText} />
       <div style={{ marginBottom: 20 }}>
-        <input type="file" multiple hidden ref={imageInput} onChange={onChangeImage} />
+        <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
         <Button onClick={onClickImageUpload}>Image Upload</Button>
         <Button type="primary" style={{ float: "right" }} htmlType="submit" loading={isAddingPost}>Post</Button>
       </div>

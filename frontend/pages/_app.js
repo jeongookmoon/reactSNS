@@ -46,16 +46,16 @@ ReactSNS.getInitialProps = async (context) => {
 }
 
 const configureStore = (initialState, options) => {
-  const sagaMiddleware = createSagaMiddleware()
-  const middlewares = [sagaMiddleware]
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [sagaMiddleware];
   // to use Redux devtools on browser add the extension to middleware
   const enhancer = process.env.NODE_ENV === "production" ?
     compose(applyMiddleware(...middlewares))
     :
-    compose(applyMiddleware(...middlewares),
-      // can be typeof window !== "undefined"
-      !options.isServer && window.__REDUX_DEVTOOLS_EXTENSION !== "undefined" ?
-        window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f)
+    compose(
+      applyMiddleware(...middlewares),
+      !options.isServer && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+      );
   const store = createStore(reducer, initialState, enhancer)
   sagaMiddleware.run(rootSaga)
   return store
